@@ -1,4 +1,5 @@
 import Controls from "./controls";
+import Sensor from "./sensor";
 
 export default class Car {
   constructor(x, y, width, height) {
@@ -14,12 +15,14 @@ export default class Car {
 
     this.angle = 0;
 
+    this.sensor = new Sensor(this);
     this.controls = new Controls();
     this.controls.listen();
   }
 
   update() {
     this.#move();
+    this.sensor.update();
   }
 
   #move() {
@@ -76,5 +79,7 @@ export default class Car {
     ctx.fill();
 
     ctx.restore();
+
+    this.sensor.draw(ctx);
   }
 }
